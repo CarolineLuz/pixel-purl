@@ -4,6 +4,7 @@
 // the recorded calls or the resulting overrides.
 
 import { vi } from "vitest";
+import type { Mock } from "vitest";
 import { paintCells, translateOverrides } from "../lib/overrides";
 import type { MittenSettings, PatternOverrides, SelectionRect } from "../lib/patternGenerator";
 import type { GridCell } from "../types/editor";
@@ -12,10 +13,10 @@ import type { PaintColors } from "../hooks/usePaintColors";
 import type { PastePreview, SelectionState } from "../hooks/useSelectionState";
 
 export interface FakeDrawing extends DrawingState {
-  beginStep: ReturnType<typeof vi.fn>;
-  paint: ReturnType<typeof vi.fn>;
-  translate: ReturnType<typeof vi.fn>;
-  set: ReturnType<typeof vi.fn>;
+  beginStep: Mock<DrawingState["beginStep"]>;
+  paint: Mock<DrawingState["paint"]>;
+  translate: Mock<DrawingState["translate"]>;
+  set: Mock<DrawingState["set"]>;
 }
 
 export function fakeDrawing(initial: PatternOverrides = new Map()): FakeDrawing {
@@ -50,9 +51,9 @@ export function fakeDrawing(initial: PatternOverrides = new Map()): FakeDrawing 
 }
 
 export interface FakeSelection extends SelectionState {
-  setSelection: ReturnType<typeof vi.fn>;
-  commitPaste: ReturnType<typeof vi.fn>;
-  hoverPaste: ReturnType<typeof vi.fn>;
+  setSelection: Mock<SelectionState["setSelection"]>;
+  commitPaste: Mock<SelectionState["commitPaste"]>;
+  hoverPaste: Mock<SelectionState["hoverPaste"]>;
 }
 
 export function fakeSelection(
