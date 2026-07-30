@@ -39,7 +39,7 @@ export function AppHeader({ settings, onChange, canRevert, onRevert, onExport, o
           title="Revert last step (Ctrl+Z)"
           onClick={onRevert}
         >
-          <Icon name="revert" size={20} className="flex-none" />
+          <Icon name="revert" size={24} className="flex-none" />
         </button>
         <input
           id="import-pattern"
@@ -60,7 +60,7 @@ export function AppHeader({ settings, onChange, canRevert, onRevert, onExport, o
           className="cursor-pointer rounded-lg bg-brand px-4 py-[10px] text-[0.9rem] font-bold text-black shadow-[0_2px_10px_rgba(214,40,40,0.28)] transition-transform duration-150 ease-[ease] hover:scale-105 focus-visible:scale-105 focus-visible:outline-none"
           onClick={onExport}
         >
-          Export pattern
+          <Icon name="download" size={24} className="flex-none" />
         </button>
       </div>
     </header>

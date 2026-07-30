@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-export type IconName = "draw" | "select" | "image" | "revert";
+export type IconName = "draw" | "select" | "image" | "revert" | "download";
 
 type IconVariant = "fill" | "stroke";
 
@@ -30,12 +30,18 @@ const ICONS: Record<IconName, IconDef> = {
     ],
   },
   revert: {
-    variant: "stroke",
+    variant: "fill",
     paths: [
       "M18 8H4v2h14zm2 2h-2v10h2zM8 14h2v-2H8zm-2-2h2v-2H6zm0-4h2V6H6z",
       "M8 12h2V4H8z"
     ],
   },
+  download: {
+    variant: "fill",
+    paths: [
+      "M4 20h16v2H4zm7-18h2v16h-2zm2 12h2v2h-2zm2-2h2v2h-2zm2-2h2v2h-2zm-8 4h2v2H9zm-2-2h2v2H7zm-2-2h2v2H5z"  
+    ],
+  }
 };
 
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "name"> {
