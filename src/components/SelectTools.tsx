@@ -6,6 +6,7 @@ import {
   toolbarModeBtn,
   toolbarPanel,
 } from "../styles/ui";
+import { Icon } from "./Icon";
 
 interface SelectToolsProps {
   /** Whether the canvas is in selection mode (marquee / move) rather than
@@ -48,22 +49,7 @@ export function SelectTools({
         aria-label={selectMode ? "exit select mode" : "select"}
         onClick={onToggleMode}
       >
-        {selectMode ? (
-          "×"
-        ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            aria-hidden
-          >
-            <path
-              fill="currentColor"
-              d="M5 21H3v-2h2zm4 0H7v-2h2zm4 0h-2v-2h2zm4 0h-2v-2h2zm4 0h-2v-2h2zM5 17H3v-2h2zm16 0h-2v-2h2zM5 13H3v-2h2zm16 0h-2v-2h2zM5 9H3V7h2zm16 0h-2V7h2zM5 5H3V3h2zm4 0H7V3h2zm4 0h-2V3h2zm4 0h-2V3h2zm4 0h-2V3h2z"
-            />
-          </svg>
-        )}
+        {selectMode ? "×" : <Icon name="select" />}
       </button>
 
       {selectMode && (

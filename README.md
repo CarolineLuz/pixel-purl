@@ -31,3 +31,8 @@ build on `lib`, and `lib` knows nothing about React.
 ## Demo
 
 A demo of this project can be found under [carolineluz.github.io/pixel-purl](https://carolineluz.github.io/pixel-purl).
+
+
+## Credits
+
+pixel icons are sourced from [https://allsvgicons.com/pack/pixelarticons/](allsvgicons.com/pack/pixelarticons/)

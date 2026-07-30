@@ -2,6 +2,7 @@ import { useRef, type ChangeEvent } from "react";
 import { ACCEPTED_PROJECT_TYPES } from "../config/editor";
 import type { MittenSettings } from "../lib/patternGenerator";
 import { Controls } from "./Controls";
+import { Icon } from "./Icon";
 
 interface AppHeaderProps {
   settings: MittenSettings;
@@ -38,21 +39,7 @@ export function AppHeader({ settings, onChange, canRevert, onRevert, onExport, o
           title="Revert last step (Ctrl+Z)"
           onClick={onRevert}
         >
-          <svg
-            className="flex-none"
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden
-          >
-            <path d="M9 14 4 9l5-5" />
-            <path d="M4 9h11a5 5 0 0 1 0 10h-1" />
-          </svg>
+          <Icon name="revert" size={16} className="flex-none" />
           Revert
         </button>
         <input
