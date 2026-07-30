@@ -39,8 +39,7 @@ export function AppHeader({ settings, onChange, canRevert, onRevert, onExport, o
           title="Revert last step (Ctrl+Z)"
           onClick={onRevert}
         >
-          <Icon name="revert" size={16} className="flex-none" />
-          Revert
+          <Icon name="revert" size={20} className="flex-none" />
         </button>
         <input
           id="import-pattern"

@@ -31,7 +31,10 @@ const ICONS: Record<IconName, IconDef> = {
   },
   revert: {
     variant: "stroke",
-    paths: ["M9 14 4 9l5-5", "M4 9h11a5 5 0 0 1 0 10h-1"],
+    paths: [
+      "M18 8H4v2h14zm2 2h-2v10h2zM8 14h2v-2H8zm-2-2h2v-2H6zm0-4h2V6H6z",
+      "M8 12h2V4H8z"
+    ],
   },
 };
 
@@ -40,7 +43,7 @@ export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "name"> {
   size?: number;
 }
 
-export function Icon({ name, size = 20, ...props }: IconProps) {
+export function Icon({ name, size = 28, ...props }: IconProps) {
   const { variant, paths } = ICONS[name];
   const stroke = variant === "stroke";
   return (
