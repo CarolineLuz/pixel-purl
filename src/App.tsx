@@ -37,7 +37,7 @@ export default function App() {
           });
         }}
       />
-      <div className="contents">
+      <div className="contents max-[600px]:flex max-[600px]:flex-wrap max-[600px]:items-center max-[600px]:gap-x-5 max-[600px]:gap-y-2 max-[600px]:bg-[rgb(237,233,233)] max-[600px]:px-4 max-[600px]:py-2">
         <DrawTools
           drawMode={tool.mode === "draw"}
           color={colors.color}

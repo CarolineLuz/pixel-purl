@@ -29,7 +29,7 @@ export function ImageToolbar({
 }: ImageToolbarProps) {
   return (
     <form
-      className={`${toolbarBase} top-[205px] max-h-[calc(100vh_-_221px)] gap-3 max-[600px]:items-end ${
+      className={`${toolbarBase} top-[205px] max-h-[calc(100vh_-_221px)] gap-3 ${
         open ? `${toolbarPanel} z-[16]` : ""
       }`}
       aria-label="image tools"
@@ -39,10 +39,25 @@ export function ImageToolbar({
         type="button"
         className={open ? toolbarCloseBtn : toolbarModeBtn}
         aria-pressed={open}
-        aria-label={open ? "hide image tools" : undefined}
+        aria-label={open ? "hide image tools" : "grab image"}
         onClick={onToggleOpen}
       >
-        {open ? "×" : "image config"}
+        {open ? (
+          "×"
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            aria-hidden
+          >
+            <g fill="currentColor">
+              <path d="M4 2h16v2H4zm0 18h16v2H4zM2 4h2v16H2zm18 0h2v16h-2zm-4 8h2v2h-2zm-2 2h2v2h-2zm4 0h2v2h-2zm-8 0h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2z" />
+              <path d="M20 16h2v2h-2zM8 16h2v2H8zm-2 2h2v2H6zM8 6h2v2H8zM6 8h2v2H6zm2 2h2v2H8zm2-2h2v2h-2z" />
+            </g>
+          </svg>
+        )}
       </button>
 
       {open && (

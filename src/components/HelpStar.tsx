@@ -107,7 +107,7 @@ export function HelpStar() {
                 last drawing step and <em>clear drawing</em> removes all your edits.
               </li>
               <li className="mb-2 text-[0.9rem] leading-normal">
-                <strong>Copy, paste and move.</strong> Hit <em>copypasta!</em> to
+                <strong>Copy, paste and move.</strong> Hit <em>select!</em> to
                 enter selection mode, then drag on the grid to select a rectangle
                 of stitches. Drag inside a selection to move it, or use{" "}
                 <em>copy</em> and <em>paste</em> (then click a stitch to drop the

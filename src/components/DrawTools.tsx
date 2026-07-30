@@ -120,7 +120,7 @@ export function DrawTools({
 
   return (
     <div
-      className={`${toolbarBase} top-[150px] max-h-[calc(100vh_-_166px)] gap-2 max-[600px]:items-center ${
+      className={`${toolbarBase} top-[150px] max-h-[calc(100vh_-_166px)] gap-2 ${
         drawMode ? `${toolbarPanel} z-[16]` : ""
       }`}
       role="toolbar"
@@ -130,10 +130,25 @@ export function DrawTools({
         type="button"
         className={drawMode ? toolbarCloseBtn : toolbarModeBtn}
         aria-pressed={drawMode}
-        aria-label={drawMode ? "exit draw mode" : undefined}
+        aria-label={drawMode ? "exit draw mode" : "draw"}
         onClick={onToggleMode}
       >
-        {drawMode ? "×" : "drawing"}
+        {drawMode ? (
+          "×"
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            aria-hidden
+          >
+            <path
+              fill="currentColor"
+              d="M18 2h-2v2h-2v2h-2v2h-2v2H8v2H6v2H4v2H2v6h6v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2V8h2V6h-2V4h-2zm0 8h-2v2h-2v2h-2v2h-2v2H8v-2H6v-2h2v-2h2v-2h2V8h2V6h2v2h2zM6 16H4v4h4v-2H6z"
+            />
+          </svg>
+        )}
       </button>
 
       {drawMode && (
@@ -219,7 +234,7 @@ export function DrawTools({
           </div>
           <button
             type="button"
-            className={`${actionBtn} mt-auto max-[600px]:mt-0 max-[600px]:ml-auto`}
+            className={`${actionBtn} mt-auto max-[600px]:mt-0`}
             disabled={!canRevert}
             aria-label="revert last step"
             title="revert last step"

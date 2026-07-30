@@ -35,8 +35,8 @@ export function SelectTools({
 }: SelectToolsProps) {
   return (
     <div
-      className={`${toolbarBase} top-[260px] max-h-[calc(100vh_-_276px)] gap-2 max-[600px]:items-center ${
-        selectMode ? `${toolbarPanel} z-[16] w-[210px] max-[600px]:w-auto` : ""
+      className={`${toolbarBase} top-[260px] max-h-[calc(100vh_-_276px)] gap-2 ${
+        selectMode ? `${toolbarPanel} z-[16] w-[210px]` : ""
       }`}
       role="toolbar"
       aria-label="selection tools"
@@ -45,10 +45,25 @@ export function SelectTools({
         type="button"
         className={selectMode ? toolbarCloseBtn : toolbarModeBtn}
         aria-pressed={selectMode}
-        aria-label={selectMode ? "exit select mode" : undefined}
+        aria-label={selectMode ? "exit select mode" : "select"}
         onClick={onToggleMode}
       >
-        {selectMode ? "×" : "copypasta"}
+        {selectMode ? (
+          "×"
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            aria-hidden
+          >
+            <path
+              fill="currentColor"
+              d="M5 21H3v-2h2zm4 0H7v-2h2zm4 0h-2v-2h2zm4 0h-2v-2h2zm4 0h-2v-2h2zM5 17H3v-2h2zm16 0h-2v-2h2zM5 13H3v-2h2zm16 0h-2v-2h2zM5 9H3V7h2zm16 0h-2V7h2zM5 5H3V3h2zm4 0H7V3h2zm4 0h-2V3h2zm4 0h-2V3h2zm4 0h-2V3h2z"
+            />
+          </svg>
+        )}
       </button>
 
       {selectMode && (

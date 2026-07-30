@@ -24,24 +24,29 @@ export const rangeFull = "block w-full accent-brand max-[600px]:w-[120px]";
 
 /** Positioning + layout shared by the fixed left-rail toolbars (draw + image +
  *  select). Each grows downward from its own top so opening one never shifts the
- *  other's collapsed button; on narrow screens both flow as full-width bars.
+ *  other's collapsed button. On narrow screens they drop out of the fixed rail
+ *  (the `.contents` wrapper flows them instead) but stay a vertical column, so an
+ *  expanded panel stacks its controls as full-width rows.
  *  Panel chrome (border/background/padding) lives in `toolbarPanel` and is only
  *  applied while expanded, so a collapsed toolbar shows just its labelled button.
- *  Callers add their own `top`, `max-h`, `gap`, and mobile `items-*`. */
+ *  Callers add their own `top`, `max-h`, and `gap`. */
 export const toolbarBase =
-  "fixed left-0 z-[15] m-0 flex flex-col items-stretch overflow-y-auto max-[600px]:static max-[600px]:max-h-none max-[600px]:flex-row max-[600px]:flex-wrap max-[600px]:gap-x-5 max-[600px]:gap-y-3";
+  "fixed left-0 z-[15] m-0 flex flex-col items-stretch overflow-y-auto max-[600px]:static max-[600px]:max-h-none";
 
 /** The rounded card chrome for an expanded toolbar. Applied only while open. A
  *  soft drop shadow lifts the open panel off the canvas; on narrow screens it
- *  flattens into a full-width bar with no shadow or side borders. */
+ *  flattens into a full-width bar with no shadow or side borders, and `order-1`
+ *  drops it below the row of collapsed toggle links rather than splitting them. */
 export const toolbarPanel =
-  "rounded-r-xl border border-l-0 border-[rgb(224,218,218)] bg-[rgb(248,245,245)] px-4 py-4 shadow-[3px_4px_18px_rgba(60,50,50,0.12)] max-[600px]:rounded-none max-[600px]:border-x-0 max-[600px]:border-b max-[600px]:shadow-none";
+  "rounded-r-xl border border-l-0 border-[rgb(224,218,218)] bg-[rgb(248,245,245)] px-4 py-4 shadow-[3px_4px_18px_rgba(60,50,50,0.12)] max-[600px]:order-1 max-[600px]:-ml-4 max-[600px]:w-[calc(100%_+_2rem)] max-[600px]:rounded-none max-[600px]:border-x-0 max-[600px]:border-b max-[600px]:bg-[rgb(237,233,233)] max-[600px]:shadow-none";
 
 /** The collapsed toolbar's toggle button ("drawing" / "image config") — a tab
  *  hugging the left edge of the viewport, so the three rails read as one group.
- *  On narrow screens it detaches into a normal rounded button. */
+ *  On narrow screens the tab chrome falls away and it becomes a plain underlined
+ *  text link, so the three collapsed toolbars read as one horizontal row of
+ *  links (laid out by the flex row on the `.contents` wrapper). */
 export const toolbarModeBtn =
-  "cursor-pointer rounded-r-lg border border-l-0 border-[rgb(224,218,218)] bg-[rgb(238,233,233)] px-3.5 py-2 text-[0.8rem] font-bold shadow-[2px_2px_10px_rgba(60,50,50,0.10)] transition-colors hover:bg-[rgb(231,224,224)] hover:text-brand max-[600px]:rounded-md max-[600px]:border-l";
+  "cursor-pointer rounded-r-lg border border-l-0 border-[rgb(224,218,218)] bg-[rgb(238,233,233)] px-3.5 py-2 text-[0.8rem] font-bold shadow-[2px_2px_10px_rgba(60,50,50,0.10)] transition-colors hover:bg-[rgb(231,224,224)] hover:text-brand max-[600px]:rounded-none max-[600px]:border-0 max-[600px]:bg-transparent max-[600px]:p-0 max-[600px]:font-normal max-[600px]:underline max-[600px]:underline-offset-2 max-[600px]:shadow-none max-[600px]:hover:bg-transparent";
 
 /** The expanded toolbar's close (×) button. */
 export const toolbarCloseBtn =
