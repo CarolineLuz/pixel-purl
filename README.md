@@ -1,6 +1,6 @@
-# Mitten Maker
+# Pixel Purl
 
-A single page application to facilitate the creation of knit patterns.
+A single page application to facilitate the creation of knit and crochet patterns.
 Built with React, TypeScript and Vite.
 
 ## Development
@@ -30,4 +30,4 @@ build on `lib`, and `lib` knows nothing about React.
 
 ## Demo
 
-A demo of this project can be found under [carolineluz.github.io](https://carolineluz.github.io).
+A demo of this project can be found under [carolineluz.github.io/pixel-purl](https://carolineluz.github.io/pixel-purl).
