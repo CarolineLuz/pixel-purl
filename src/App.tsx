@@ -8,6 +8,7 @@ import { ImageToolbar } from "./components/ImageToolbar";
 import { PatternCanvas } from "./components/PatternCanvas";
 import { SelectTools } from "./components/SelectTools";
 import { usePatternEditor } from "./hooks/usePatternEditor";
+import { useUndoHotkey } from "./hooks/useUndoHotkey";
 
 /**
  * Composition root. All of the editor's state and behaviour lives in
@@ -19,12 +20,16 @@ export default function App() {
     editor;
   const [exportOpen, setExportOpen] = useState(false);
 
+  useUndoHotkey(drawing.revert);
+
   return (
     <>
       <HelpStar />
       <AppHeader
         settings={settings}
         onChange={editor.changeSetting}
+        canRevert={drawing.canRevert}
+        onRevert={drawing.revert}
         onExport={() => setExportOpen(true)}
         onImport={(file) => {
           editor.importPattern(file).catch((err) => {

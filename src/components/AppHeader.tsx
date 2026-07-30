@@ -6,14 +6,14 @@ import { Controls } from "./Controls";
 interface AppHeaderProps {
   settings: MittenSettings;
   onChange: (key: keyof MittenSettings, value: number | boolean) => void;
-  /** Download the pattern (PNG image + re-importable project file). */
+  canRevert: boolean;
+  onRevert: () => void;
   onExport: () => void;
-  /** Restore a previously exported project file. */
   onImport: (file: File) => void;
 }
 
-/** Title, the grid controls, and the export / import buttons. */
-export function AppHeader({ settings, onChange, onExport, onImport }: AppHeaderProps) {
+/** Title, the grid controls, and the revert / export / import buttons. */
+export function AppHeader({ settings, onChange, canRevert, onRevert, onExport, onImport }: AppHeaderProps) {
   const importRef = useRef<HTMLInputElement>(null);
 
   const handleImport = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +30,31 @@ export function AppHeader({ settings, onChange, onExport, onImport }: AppHeaderP
       </h1>
       <Controls settings={settings} onChange={onChange} />
       <div className="flex items-center gap-3 self-end max-[600px]:self-auto">
+        <button
+          type="button"
+          className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-[rgb(216,210,210)] bg-white px-4 py-[10px] text-[0.9rem] font-bold text-black transition-colors hover:border-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[rgb(216,210,210)] disabled:hover:text-black"
+          disabled={!canRevert}
+          aria-label="revert last step"
+          title="Revert last step (Ctrl+Z)"
+          onClick={onRevert}
+        >
+          <svg
+            className="flex-none"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M9 14 4 9l5-5" />
+            <path d="M4 9h11a5 5 0 0 1 0 10h-1" />
+          </svg>
+          Revert
+        </button>
         <input
           id="import-pattern"
           type="file"
