@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ZOOM_MAX, ZOOM_MIN, ZOOM_STEP } from "./config/editor";
+import { LABEL_MARGIN } from "./config/pattern";
+import { derive } from "./lib/patternGrid";
 import { AppHeader } from "./components/AppHeader";
 import { ColorPickerModal } from "./components/ColorPickerModal";
 import { DrawTools } from "./components/DrawTools";
@@ -22,6 +24,11 @@ export default function App() {
     editor;
   const [exportOpen, setExportOpen] = useState(false);
   const [zoom, setZoom] = useState(1);
+
+  // Intrinsic on-screen width of the canvas (matches the bitmap width
+  // `drawPattern` sets), so `zoom` scales from a fixed size instead of
+  // stretching to fill the container.
+  const canvasBaseWidth = derive(settings).width + LABEL_MARGIN;
 
   // Round after each step so repeated clicks don't drift off the 0.25 grid.
   const stepZoom = (delta: number) =>
@@ -95,6 +102,7 @@ export default function App() {
         canvasRef={editor.canvasRef}
         interaction={editor.interaction}
         zoom={zoom}
+        baseWidth={canvasBaseWidth}
       />
       {exportOpen && (
         <ExportModal

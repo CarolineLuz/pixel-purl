@@ -39,11 +39,12 @@ export const ACCEPTED_PROJECT_TYPES = ".zip,.pattern,application/zip,application
 export const CANVAS_INITIAL_SIZE = 800;
 
 /** Display-only zoom bounds and step for the canvas. Zoom scales how large the
- *  grid is drawn on screen; it never changes the pattern data. `1` is the
- *  natural "fit the available width" size. */
+ *  grid is drawn on screen; it never changes the pattern data. `1` renders the
+ *  grid at its intrinsic size, so a stitch is always the same size on screen
+ *  regardless of the stitch/row count. */
 export const ZOOM_MIN = 0.5;
 export const ZOOM_MAX = 3;
-export const ZOOM_STEP = 0.25;
+export const ZOOM_STEP = 0.1;
 
 /** Image types the file picker accepts. */
 export const ACCEPTED_IMAGE_TYPES = "image/jpg, image/png, image/jpeg, image/webp";

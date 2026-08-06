@@ -16,7 +16,7 @@ function makeInteraction(): CanvasInteraction {
 describe("PatternCanvas", () => {
   it("renders a canvas wired to the ref with the interaction's cursor class", () => {
     const ref = createRef<HTMLCanvasElement>();
-    const { container } = render(<PatternCanvas canvasRef={ref} interaction={makeInteraction()} zoom={1} />);
+    const { container } = render(<PatternCanvas canvasRef={ref} interaction={makeInteraction()} zoom={1} baseWidth={800} />);
     const canvas = container.querySelector("canvas")!;
     expect(ref.current).toBe(canvas);
     expect(canvas.className).toContain("cursor-grab");
@@ -24,7 +24,7 @@ describe("PatternCanvas", () => {
 
   it("forwards pointer events to the active interaction", () => {
     const interaction = makeInteraction();
-    const { container } = render(<PatternCanvas canvasRef={createRef()} interaction={interaction} zoom={1} />);
+    const { container } = render(<PatternCanvas canvasRef={createRef()} interaction={interaction} zoom={1} baseWidth={800} />);
     const canvas = container.querySelector("canvas")!;
 
     fireEvent.pointerDown(canvas);
@@ -37,7 +37,7 @@ describe("PatternCanvas", () => {
 
   it("treats a pointer cancel as a pointer up", () => {
     const interaction = makeInteraction();
-    const { container } = render(<PatternCanvas canvasRef={createRef()} interaction={interaction} zoom={1} />);
+    const { container } = render(<PatternCanvas canvasRef={createRef()} interaction={interaction} zoom={1} baseWidth={800} />);
     fireEvent.pointerCancel(container.querySelector("canvas")!);
     expect(interaction.onPointerUp).toHaveBeenCalledTimes(1);
   });
