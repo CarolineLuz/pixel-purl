@@ -21,7 +21,7 @@ interface PatternCanvasProps {
  *  places the element and forwards pointer events to the active tool. */
 export function PatternCanvas({ canvasRef, interaction, zoom, baseWidth }: PatternCanvasProps) {
   return (
-    <main className="overflow-x-auto py-6 pr-4 pl-[20px] max-[820px]:pl-4">
+    <main className="overflow-x-auto py-6 pr-4 pl-[160px] max-[820px]:pl-4">
       <canvas
         ref={canvasRef}
         width={CANVAS_INITIAL_SIZE}

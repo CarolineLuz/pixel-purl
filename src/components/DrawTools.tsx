@@ -70,7 +70,7 @@ export function DrawTools({
         aria-label={drawMode ? "exit draw mode" : "draw"}
         onClick={onToggleMode}
       >
-        {drawMode ? <Icon name="close" size={22} /> : <Icon name="draw" />}
+        <Icon name={drawMode ? "close" : "draw"}/> 
       </button>
 
       {drawMode && (

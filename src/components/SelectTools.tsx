@@ -50,19 +50,22 @@ export function SelectTools({
     >
       <button
         type="button"
-        className={selectMode ? toolbarCloseBtn : toolbarModeBtn}
+        className={
+          selectMode
+            ? `${toolbarCloseBtn} min-[821px]:fixed min-[821px]:left-[140px] min-[821px]:top-[260px] min-[821px]:z-[17] min-[821px]:-translate-x-1/2 min-[821px]:-translate-y-1/2`
+            : toolbarModeBtn
+        }
         aria-pressed={selectMode}
         aria-label={selectMode ? "exit select mode" : "select"}
         onClick={onToggleMode}
       >
-        {selectMode ? "×" : <Icon name="select" />}
+        {selectMode ? <Icon name="close" /> : <Icon size={18} name="select" />}
       </button>
 
       {selectMode && (
         <>
           <span className={hint}>
-            drag on the grid to select a rectangle of stitches. turn on move to
-            drag a selection around.
+            drag on the grid to select a rectangle of stitches. 
           </span>
           <div className="flex flex-wrap gap-2">
             <button
@@ -75,7 +78,7 @@ export function SelectTools({
               disabled={!hasSelection}
               onClick={onToggleMove}
             >
-              <Icon name="move" />
+              <Icon size={18} name="move" />
             </button>
             <button
               type="button"
@@ -84,7 +87,7 @@ export function SelectTools({
               disabled={!hasSelection}
               onClick={onCopy}
             >
-              <Icon name="copy" />
+              <Icon size={18} name="copy" />
             </button>
             <button
               type="button"
@@ -96,7 +99,7 @@ export function SelectTools({
               disabled={!hasClipboard}
               onClick={onPaste}
             >
-              {pasting ? "placing… (cancel)" : <Icon name="paste" />}
+              {pasting ? "placing… (cancel)" : <Icon size={18} name="paste" />}
             </button>
             <button
               type="button"
@@ -106,7 +109,7 @@ export function SelectTools({
               disabled={!hasSelection && !pasting}
               onClick={onDeselect}
             >
-              <Icon name="close" />
+              <Icon size={18} name="close" />
             </button>
           </div>
           {pasting && (

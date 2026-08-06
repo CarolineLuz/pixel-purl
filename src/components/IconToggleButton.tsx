@@ -28,7 +28,7 @@ export function IconToggleButton({
       data-tooltip={label}
       onClick={onClick}
     >
-      <Icon name={icon} size={20} className="flex-none" />
+      <Icon name={icon} size={18} className="flex-none" />
     </button>
   );
 }

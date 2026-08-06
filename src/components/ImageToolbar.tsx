@@ -31,19 +31,23 @@ export function ImageToolbar({
   return (
     <form
       className={`${toolbarBase} top-[205px] max-h-[calc(100vh_-_221px)] gap-3 ${
-        open ? `${toolbarPanel} min-[821px]:z-[16]` : ""
+        open ? `${toolbarPanel} min-[821px]:z-[16] min-[821px]:w-[160px]` : ""
       }`}
       aria-label="image tools"
       onSubmit={(e) => e.preventDefault()}
     >
       <button
         type="button"
-        className={open ? toolbarCloseBtn : toolbarModeBtn}
+        className={
+          open
+            ? `${toolbarCloseBtn} min-[821px]:fixed min-[821px]:left-[160px] min-[821px]:top-[205px] min-[821px]:z-[17] min-[821px]:-translate-x-1/2 min-[821px]:-translate-y-1/2`
+            : toolbarModeBtn
+        }
         aria-pressed={open}
         aria-label={open ? "hide image tools" : "grab image"}
         onClick={onToggleOpen}
       >
-        {open ? "×" : <Icon name="image" />}
+        {open ? <Icon name="close" /> : <Icon name="image" />}
       </button>
 
       {open && (

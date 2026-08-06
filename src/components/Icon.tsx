@@ -8,7 +8,7 @@ export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "name"> {
   size?: number;
 }
 
-export function Icon({ name, size = 28, ...props }: IconProps) {
+export function Icon({ name, size = 18, ...props }: IconProps) {
   const { variant, paths } = ICONS[name];
   const stroke = variant === "stroke";
   return (

@@ -50,7 +50,7 @@ export function AppHeader({ settings, onChange, canRevert, onRevert, canClear, o
   };
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-10 flex flex-wrap items-center gap-x-7 gap-y-4 border-b border-[rgb(224,218,218)] bg-[rgb(237,233,233)] px-5 py-[14px] shadow-[0_1px_10px_rgba(60,50,50,0.06)] max-[820px]:flex-col max-[820px]:items-stretch max-[820px]:gap-y-3 max-[820px]:px-4 max-[820px]:py-2">
+    <header ref={headerRef} className="sticky top-0 z-10 flex flex-wrap items-center gap-x-4 gap-y-4 border-b border-[rgb(224,218,218)] bg-[rgb(237,233,233)] px-5 py-[14px] shadow-[0_1px_10px_rgba(60,50,50,0.06)] max-[820px]:flex-col max-[820px]:items-stretch max-[820px]:gap-y-3 max-[820px]:px-4 max-[820px]:py-2">
       {/* On narrow screens: left-aligned and shrunk so it clears the fixed
           HelpStar in the top-right corner instead of colliding with it. */}
       <h1 className="m-0 whitespace-nowrap text-2xl font-bold text-black max-[820px]:pr-14 max-[820px]:text-left max-[820px]:text-lg">
@@ -62,33 +62,33 @@ export function AppHeader({ settings, onChange, canRevert, onRevert, canClear, o
       <div className="flex items-center gap-3 self-end max-[820px]:flex-wrap max-[820px]:justify-center max-[820px]:gap-y-2 max-[820px]:self-auto">
         <button
           type="button"
-          className={`inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-[rgb(216,210,210)] bg-white px-4 py-[10px] text-[0.9rem] font-bold text-black transition-colors hover:border-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[rgb(216,210,210)] disabled:hover:text-black ${mobileShrink}`}
+          className={`inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-[rgb(216,210,210)] bg-white px-4 py-[10px] text-[0.9rem] min-[821px]:px-3.5 min-[821px]:py-2 min-[821px]:text-xs font-bold text-black transition-colors hover:border-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[rgb(216,210,210)] disabled:hover:text-black${mobileShrink}`}
           disabled={!canRevert}
           aria-label="revert last step"
           data-tooltip="Revert last step (Ctrl+Z)"
           onClick={onRevert}
         >
-          <Icon name="revert" size={24} className="flex-none" />
+          <Icon name="revert"  className="flex-none min-[821px]:size-4" />
         </button>
         <button
           type="button"
-          className={`inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-[rgb(216,210,210)] bg-white px-4 py-[10px] text-[0.9rem] font-bold text-black transition-colors hover:border-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[rgb(216,210,210)] disabled:hover:text-black ${mobileShrink}`}
+          className={`inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-[rgb(216,210,210)] bg-white px-4 py-[10px] text-[0.9rem] min-[821px]:px-3.5 min-[821px]:py-2 min-[821px]:text-xs font-bold text-black transition-colors hover:border-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[rgb(216,210,210)] disabled:hover:text-black${mobileShrink}`}
           disabled={!canClear}
           aria-label="clear canvas"
           data-tooltip="Clear canvas"
           onClick={onClear}
         >
-          <Icon name="clear" size={24} className="flex-none" />
+          <Icon name="clear" className="flex-none min-[821px]:size-4" />
         </button>
         
         <button
           type="button"
-          className={`cursor-pointer rounded-lg bg-brand px-4 py-[10px] text-[0.9rem] font-bold text-black shadow-[0_2px_10px_rgba(214,40,40,0.28)] transition-transform duration-150 ease-[ease] hover:scale-105 focus-visible:scale-105 focus-visible:outline-none ${mobileShrink}`}
+          className={`cursor-pointer rounded-lg bg-brand px-4 py-[10px] text-[0.9rem] min-[821px]:px-3.5 min-[821px]:py-2 min-[821px]:text-xs font-bold text-black shadow-[0_2px_10px_rgba(214,40,40,0.28)] transition-transform duration-150 ease-[ease] hover:scale-105 focus-visible:scale-105 focus-visible:outline-none${mobileShrink}`}
           aria-label="export pattern"
           data-tooltip="Export pattern"
           onClick={onExport}
         >
-          <Icon name="download" size={24} className="flex-none" />
+          <Icon name="download" className="flex-none min-[821px]:size-4" />
         </button>
         <input
           id="import-pattern"
@@ -100,14 +100,14 @@ export function AppHeader({ settings, onChange, canRevert, onRevert, canClear, o
         />
         <label
           htmlFor="import-pattern"
-          className={`cursor-pointer rounded-lg border border-brand bg-transparent px-4 py-[10px] text-center text-[0.9rem] font-bold text-brand transition-transform duration-150 ease-[ease] hover:scale-105 peer-focus-visible:scale-105 peer-focus-visible:outline-none ${mobileShrink}`}
+          className={`cursor-pointer rounded-lg border border-brand bg-transparent px-4 py-[10px] text-center text-[0.9rem] min-[821px]:px-3.5 min-[821px]:py-2 min-[821px]:text-xs font-bold text-brand transition-transform duration-150 ease-[ease] hover:scale-105 peer-focus-visible:scale-105 peer-focus-visible:outline-none${mobileShrink}`}
         >
           Import
         </label>
-        <div className="ml-1 flex items-center gap-1 rounded-lg border border-[rgb(216,210,210)] bg-white px-1 py-1">
+        <div className="ml-1 flex items-center gap-1 rounded-lg border border-[rgb(216,210,210)] bg-white px-1 py-0.5">
           <button
             type="button"
-            className={`inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-2xl font-bold leading-none text-black transition-colors hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-black ${mobileShrink}`}
+            className={`inline-flex h-8 w-8 min-[821px]:h-7 min-[821px]:w-7 cursor-pointer items-center justify-center rounded-md text-2xl min-[821px]:text-xl font-bold leading-none text-black transition-colors hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-black ${mobileShrink}`}
             aria-label="zoom out"
             data-tooltip="Zoom out"
             disabled={!canZoomOut}
@@ -115,12 +115,12 @@ export function AppHeader({ settings, onChange, canRevert, onRevert, canClear, o
           >
             −
           </button>
-          <span className="min-w-[3.25rem] text-center text-[0.9rem] font-bold tabular-nums text-black" aria-live="polite">
+          <span className="min-w-[3.25rem] min-[821px]:min-w-[2.75rem] text-center text-[0.9rem] min-[821px]:text-xs font-bold tabular-nums text-black" aria-live="polite">
             {Math.round(zoom * 100)}%
           </span>
           <button
             type="button"
-            className={`inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-2xl font-bold leading-none text-black transition-colors hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-black ${mobileShrink}`}
+            className={`inline-flex h-8 w-8 min-[821px]:h-7 min-[821px]:w-7 cursor-pointer items-center justify-center rounded-md text-2xl min-[821px]:text-xl font-bold leading-none text-black transition-colors hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-black ${mobileShrink}`}
             aria-label="zoom in"
             data-tooltip="Zoom in"
             disabled={!canZoomIn}
