@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { cssToRgba } from "../lib/canvasColor";
 import { INK_COLORS } from "../lib/patternGenerator";
+import { mobileShrink } from "../styles/ui";
 
 interface ColorPickerModalProps {
   /** When set, the modal is overwriting this existing canvas colour (a
@@ -48,7 +49,7 @@ export function ColorPickerModal({
       >
         <button
           type="button"
-          className="absolute top-2 right-3 cursor-pointer border-none bg-transparent text-[1.6rem] leading-none text-black"
+          className={`absolute top-2 right-3 cursor-pointer border-none bg-transparent text-[1.6rem] leading-none text-black ${mobileShrink}`}
           aria-label="cancel"
           onClick={onCancel}
         >
@@ -102,12 +103,12 @@ export function ColorPickerModal({
             <button
               key={c}
               type="button"
-              className={`aspect-square cursor-pointer rounded border-2 p-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.2)] ${
+              className={`aspect-square cursor-pointer rounded border-2 p-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.2)] ${mobileShrink} ${
                 picked === c ? "border-brand" : "border-transparent"
               }`}
               style={{ backgroundColor: c }}
               aria-label={c}
-              title={c}
+              data-tooltip={c}
               onClick={() => setPicked(c)}
             />
           ))}
@@ -116,14 +117,14 @@ export function ColorPickerModal({
         <div className="flex justify-end gap-2">
           <button
             type="button"
-            className="cursor-pointer rounded-md border border-[rgb(216,210,210)] bg-white px-[14px] py-[6px] text-[0.85rem] transition-colors hover:border-brand hover:text-brand"
+            className={`cursor-pointer rounded-md border border-[rgb(216,210,210)] bg-white px-[14px] py-[6px] text-[0.85rem] transition-colors hover:border-brand hover:text-brand ${mobileShrink}`}
             onClick={onCancel}
           >
             Cancel
           </button>
           <button
             type="button"
-            className="cursor-pointer rounded-md border border-brand bg-brand px-[14px] py-[6px] text-[0.85rem] text-white transition-transform duration-150 hover:scale-105"
+            className={`cursor-pointer rounded-md border border-brand bg-brand px-[14px] py-[6px] text-[0.85rem] text-white transition-transform duration-150 hover:scale-105 ${mobileShrink}`}
             onClick={() => onConfirm(picked)}
           >
             {reassigning ? "Reassign" : "Select"}

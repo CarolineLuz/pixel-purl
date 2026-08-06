@@ -30,7 +30,7 @@ build on `lib`, and `lib` knows nothing about React.
 
 ## Demo
 
-A demo of this project can be found under [carolineluz.github.io/pixel-purl](https://carolineluz.github.io/pixel-purl).
+A demo of this project can be found under [www.pixel-purl.com](www.pixel-purl.com).
 
 
 ## Credits

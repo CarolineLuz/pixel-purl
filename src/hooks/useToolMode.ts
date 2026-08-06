@@ -23,6 +23,7 @@ type ToolModeAction =
   | { type: "toggleMode"; mode: Exclude<ToolMode, "pan"> }
   | { type: "toggleReassign" }
   | { type: "toggleFill"; fill: Exclude<FillMode, "off"> }
+  | { type: "freehand" }
   | { type: "startReassign"; from: string }
   | { type: "cancelReassign" }
   | { type: "setColorPicker"; open: boolean };
@@ -68,6 +69,14 @@ function reduce(state: ToolModeState, action: ToolModeAction): ToolModeState {
         reassignMode: false,
         reassignFrom: null,
       };
+    case "freehand":
+      // Return to plain freehand painting, clearing any fill or reassign mode.
+      return {
+        ...state,
+        fillMode: "off",
+        reassignMode: false,
+        reassignFrom: null,
+      };
     case "startReassign":
       return { ...state, reassignFrom: action.from };
     case "cancelReassign":
@@ -81,6 +90,7 @@ export interface ToolModeActions {
   toggleMode(mode: Exclude<ToolMode, "pan">): void;
   toggleReassign(): void;
   toggleFill(fill: Exclude<FillMode, "off">): void;
+  freehand(): void;
   startReassign(from: string): void;
   cancelReassign(): void;
   openColorPicker(): void;
@@ -95,6 +105,7 @@ export function useToolMode(): [ToolModeState, ToolModeActions] {
       toggleMode: (mode) => dispatch({ type: "toggleMode", mode }),
       toggleReassign: () => dispatch({ type: "toggleReassign" }),
       toggleFill: (fill) => dispatch({ type: "toggleFill", fill }),
+      freehand: () => dispatch({ type: "freehand" }),
       startReassign: (from) => dispatch({ type: "startReassign", from }),
       cancelReassign: () => dispatch({ type: "cancelReassign" }),
       openColorPicker: () => dispatch({ type: "setColorPicker", open: true }),

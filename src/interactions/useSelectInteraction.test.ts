@@ -54,7 +54,7 @@ describe("useSelectInteraction", () => {
     const rect: SelectionRect = { c0: 1, r0: 1, c1: 2, r1: 2 };
 
     it("grabs the selection for a move when pressed inside it", () => {
-      const { interaction, drawing } = setup({ selection: rect });
+      const { interaction, drawing } = setup({ selection: rect, moveMode: true });
       const canvas = opaqueCanvas();
       interaction.onPointerDown(pointerEvent(canvas, { clientX: clientX(1), clientY: clientY(1) }));
       // The move is snapshotted and the lifted block re-stamped at its origin.
@@ -63,8 +63,17 @@ describe("useSelectInteraction", () => {
       expect(canvas.setPointerCapture).toHaveBeenCalledWith(1);
     });
 
-    it("translates the block and moves the marquee with it while dragging", () => {
+    it("does not move but starts a marquee when move mode is off", () => {
       const { interaction, drawing, selection } = setup({ selection: rect });
+      const canvas = opaqueCanvas();
+      interaction.onPointerDown(pointerEvent(canvas, { clientX: clientX(1), clientY: clientY(1) }));
+      // No lift/snapshot; the press begins a fresh marquee from the clamped cell.
+      expect(drawing.beginStep).not.toHaveBeenCalled();
+      expect(selection.setSelection).toHaveBeenLastCalledWith({ c0: 1, r0: 1, c1: 1, r1: 1 });
+    });
+
+    it("translates the block and moves the marquee with it while dragging", () => {
+      const { interaction, drawing, selection } = setup({ selection: rect, moveMode: true });
       const canvas = opaqueCanvas();
       interaction.onPointerDown(pointerEvent(canvas, { clientX: clientX(1), clientY: clientY(1) }));
       drawing.set.mockClear();

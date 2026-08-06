@@ -1,5 +1,6 @@
 import {
   actionBtn,
+  actionBtnSquare,
   hint,
   toolbarBase,
   toolbarCloseBtn,
@@ -18,9 +19,12 @@ interface SelectToolsProps {
   hasClipboard: boolean;
   /** Whether a paste is armed and waiting for a target stitch to be clicked. */
   pasting: boolean;
+  /** Whether "move" mode is on: dragging inside the selection relocates it. */
+  moveMode: boolean;
   onToggleMode: () => void;
   onCopy: () => void;
   onPaste: () => void;
+  onToggleMove: () => void;
   onDeselect: () => void;
 }
 
@@ -29,15 +33,17 @@ export function SelectTools({
   hasSelection,
   hasClipboard,
   pasting,
+  moveMode,
   onToggleMode,
   onCopy,
   onPaste,
+  onToggleMove,
   onDeselect,
 }: SelectToolsProps) {
   return (
     <div
       className={`${toolbarBase} top-[260px] max-h-[calc(100vh_-_276px)] gap-2 ${
-        selectMode ? `${toolbarPanel} z-[16] w-[210px]` : ""
+        selectMode ? `${toolbarPanel} min-[821px]:z-[16] w-[140px]` : ""
       }`}
       role="toolbar"
       aria-label="selection tools"
@@ -55,41 +61,59 @@ export function SelectTools({
       {selectMode && (
         <>
           <span className={hint}>
-            drag on the grid to select a rectangle of stitches. drag inside a
-            selection to move it.
+            drag on the grid to select a rectangle of stitches. turn on move to
+            drag a selection around.
           </span>
-          <button
-            type="button"
-            className={actionBtn}
-            disabled={!hasSelection}
-            onClick={onCopy}
-          >
-            copy
-          </button>
-          <button
-            type="button"
-            className={`${actionBtn} ${
-              pasting ? "border-brand text-brand font-bold" : ""
-            }`}
-            aria-pressed={pasting}
-            disabled={!hasClipboard}
-            onClick={onPaste}
-          >
-            {pasting ? "placing… (cancel)" : "paste"}
-          </button>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              className={`${actionBtnSquare} ${
+                moveMode ? "border-brand text-brand font-bold" : ""
+              }`}
+              aria-label="move"
+              aria-pressed={moveMode}
+              disabled={!hasSelection}
+              onClick={onToggleMove}
+            >
+              <Icon name="move" />
+            </button>
+            <button
+              type="button"
+              className={actionBtnSquare}
+              aria-label="copy"
+              disabled={!hasSelection}
+              onClick={onCopy}
+            >
+              <Icon name="copy" />
+            </button>
+            <button
+              type="button"
+              className={`${
+                pasting ? actionBtn : actionBtnSquare
+              } ${pasting ? "border-brand text-brand font-bold" : ""}`}
+              aria-label={pasting ? undefined : "paste"}
+              aria-pressed={pasting}
+              disabled={!hasClipboard}
+              onClick={onPaste}
+            >
+              {pasting ? "placing… (cancel)" : <Icon name="paste" />}
+            </button>
+            <button
+              type="button"
+              className={actionBtnSquare}
+              aria-label="deselect"
+              data-tooltip="deselect"
+              disabled={!hasSelection && !pasting}
+              onClick={onDeselect}
+            >
+              <Icon name="close" />
+            </button>
+          </div>
           {pasting && (
             <span className={hint}>
               click a stitch on the grid to drop the copied block there.
             </span>
           )}
-          <button
-            type="button"
-            className={actionBtn}
-            disabled={!hasSelection && !pasting}
-            onClick={onDeselect}
-          >
-            deselect
-          </button>
         </>
       )}
     </div>

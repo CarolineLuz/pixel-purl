@@ -18,11 +18,16 @@ export interface SelectionState {
   hasClipboard: boolean;
   /** Whether a paste is armed and waiting for the user to click a target stitch. */
   pasting: boolean;
+  /** Whether "move" mode is on: dragging inside the selection relocates it.
+   *  While off, the selection is fixed and a drag starts a fresh marquee. */
+  moveMode: boolean;
   preview: PastePreview | null;
   /** Copy the selected block's rendered stitches to the clipboard. */
   copy(): void;
   /** Arm a paste, or cancel one already armed. */
   togglePaste(): void;
+  /** Turn "move" mode on or off. */
+  toggleMove(): void;
   /** While arming a paste: track the cell the block's top-left hovers over. */
   hoverPaste(origin: GridCell): void;
   /** Drop the clipboard's stitches with their top-left at `origin`. */
@@ -46,6 +51,7 @@ export function useSelectionState({
   // The last copied block, available to paste until another copy replaces it.
   const [clipboard, setClipboard] = useState<StitchBlock | null>(null);
   const [pasting, setPasting] = useState(false);
+  const [moveMode, setMoveMode] = useState(false);
   // The cell the pasted block's top-left currently hovers over, or null before
   // the pointer has moved onto the grid.
   const [pasteOrigin, setPasteOrigin] = useState<GridCell | null>(null);
@@ -62,6 +68,7 @@ export function useSelectionState({
       setSelection(null);
       setPasting(false);
       setPasteOrigin(null);
+      setMoveMode(false);
     }
   }, [active]);
 
@@ -85,7 +92,15 @@ export function useSelectionState({
     if (!clipboard) return;
     setPasting((prev) => !prev);
     setPasteOrigin(null);
+    // Arming a paste clears the marquee, so move mode has nothing left to act on.
     setSelection(null);
+    setMoveMode(false);
+  };
+
+  const toggleMove = () => {
+    setMoveMode((prev) => !prev);
+    // Moving and placing a paste are mutually exclusive gestures.
+    cancelPaste();
   };
 
   // Bind ⌘/Ctrl+C and ⌘/Ctrl+V to copy and paste while the selection tool is
@@ -126,9 +141,11 @@ export function useSelectionState({
     setSelection,
     hasClipboard: clipboard !== null,
     pasting,
+    moveMode,
     preview,
     copy,
     togglePaste,
+    toggleMove,
 
     // Pointer moves arrive far more often than the hovered cell changes, and each
     // change re-renders the preview, so only take a genuinely new cell.
@@ -151,6 +168,7 @@ export function useSelectionState({
     deselect: () => {
       setSelection(null);
       cancelPaste();
+      setMoveMode(false);
     },
   };
 }

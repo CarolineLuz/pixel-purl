@@ -31,7 +31,7 @@ export function ImageToolbar({
   return (
     <form
       className={`${toolbarBase} top-[205px] max-h-[calc(100vh_-_221px)] gap-3 ${
-        open ? `${toolbarPanel} z-[16]` : ""
+        open ? `${toolbarPanel} min-[821px]:z-[16]` : ""
       }`}
       aria-label="image tools"
       onSubmit={(e) => e.preventDefault()}

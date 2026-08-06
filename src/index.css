@@ -20,8 +20,6 @@
   }
 }
 
-/* Red eight-pointed star shape for the help button — a 16-point polygon that
-   has no utility equivalent. Applied via the `star-clip` class. */
 @utility star-clip {
   clip-path: polygon(
     50% 0%,
@@ -44,17 +42,36 @@
 }
 
 @layer base {
+  /* Collapsing the mobile grid controls on scroll changes the header height.
+     Without this, the browser's scroll anchoring compensates by shifting the
+     scroll position, which pushes it back across the collapse threshold and
+     causes a hide/show flicker loop. Disabling anchoring keeps scrollY stable. */
+  html {
+    overflow-anchor: none;
+  }
+
   body {
     background-color: white;
     font-family: var(--font-mono);
   }
 
-  /* Form controls don't inherit font-family, so the Courier stack has to be
-     handed to them explicitly (replaces the per-control font declarations). */
   button,
   input,
   select,
   textarea {
     font-family: inherit;
   }
+}
+
+.tooltip-pop {
+  position: fixed;
+  z-index: 200;
+  white-space: nowrap;
+  border-radius: 6px;
+  background: rgb(51 47 47);
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  color: white;
+  pointer-events: none;
 }

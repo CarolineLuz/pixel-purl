@@ -57,7 +57,7 @@ export interface FakeSelection extends SelectionState {
 }
 
 export function fakeSelection(
-  overrides: Partial<{ selection: SelectionRect | null; pasting: boolean; preview: PastePreview | null }> = {},
+  overrides: Partial<{ selection: SelectionRect | null; pasting: boolean; moveMode: boolean; preview: PastePreview | null }> = {},
 ): FakeSelection {
   let selection = overrides.selection ?? null;
   const api = {
@@ -69,9 +69,11 @@ export function fakeSelection(
     }),
     hasClipboard: false,
     pasting: overrides.pasting ?? false,
+    moveMode: overrides.moveMode ?? false,
     preview: overrides.preview ?? null,
     copy: vi.fn(),
     togglePaste: vi.fn(),
+    toggleMove: vi.fn(),
     hoverPaste: vi.fn(),
     commitPaste: vi.fn(),
     deselect: vi.fn(),

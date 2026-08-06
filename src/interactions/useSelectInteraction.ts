@@ -97,8 +97,14 @@ export function useSelectInteraction({
         return;
       }
 
-      // Pressing inside the current selection grabs it for a move.
-      if (selection.selection && cellInside(selection.selection, cell)) {
+      // Pressing inside the current selection grabs it for a move — but only in
+      // move mode. Otherwise the selection is fixed and the press starts a fresh
+      // marquee below.
+      if (
+        selection.moveMode &&
+        selection.selection &&
+        cellInside(selection.selection, cell)
+      ) {
         beginMove(canvas, e.pointerId, e.clientX, e.clientY, selection.selection);
         return;
       }

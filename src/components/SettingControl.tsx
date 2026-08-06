@@ -5,6 +5,7 @@ import {
   control,
   controlLabel,
   controlPair,
+  controlToggle,
   numberInput,
   rangeFull,
   rangePaired,
@@ -64,7 +65,7 @@ export function SettingControl({
 
   if (spec.kind === "toggle") {
     return (
-      <div className={control}>
+      <div className={controlToggle}>
         <label htmlFor={spec.key} className={controlLabel}>
           {spec.label}
         </label>

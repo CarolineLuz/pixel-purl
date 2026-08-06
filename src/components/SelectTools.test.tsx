@@ -7,6 +7,7 @@ function renderTools(props: Partial<Parameters<typeof SelectTools>[0]> = {}) {
     onToggleMode: vi.fn(),
     onCopy: vi.fn(),
     onPaste: vi.fn(),
+    onToggleMove: vi.fn(),
     onDeselect: vi.fn(),
   };
   render(
@@ -15,6 +16,7 @@ function renderTools(props: Partial<Parameters<typeof SelectTools>[0]> = {}) {
       hasSelection={props.hasSelection ?? false}
       hasClipboard={props.hasClipboard ?? false}
       pasting={props.pasting ?? false}
+      moveMode={props.moveMode ?? false}
       {...handlers}
     />,
   );
@@ -47,6 +49,27 @@ describe("SelectTools", () => {
     expect(copy).toBeEnabled();
     fireEvent.click(copy);
     expect(onCopy).toHaveBeenCalledTimes(1);
+  });
+
+  it("disables move until something is selected", () => {
+    renderTools({ hasSelection: false });
+    expect(screen.getByRole("button", { name: "move" })).toBeDisabled();
+  });
+
+  it("enables and fires the move toggle when a selection exists", () => {
+    const { onToggleMove } = renderTools({ hasSelection: true });
+    const move = screen.getByRole("button", { name: "move" });
+    expect(move).toBeEnabled();
+    fireEvent.click(move);
+    expect(onToggleMove).toHaveBeenCalledTimes(1);
+  });
+
+  it("marks the move button pressed while move mode is on", () => {
+    renderTools({ hasSelection: true, moveMode: true });
+    expect(screen.getByRole("button", { name: "move" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
   });
 
   it("disables paste until something is on the clipboard", () => {

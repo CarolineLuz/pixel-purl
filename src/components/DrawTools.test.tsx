@@ -9,11 +9,10 @@ function renderTools(props: Partial<Props> = {}) {
     onToggleMode: vi.fn(),
     onToggleReassign: vi.fn(),
     onToggleFill: vi.fn(),
+    onFreehand: vi.fn(),
     onColorChange: vi.fn(),
     onReassignColor: vi.fn(),
     onPickColor: vi.fn(),
-    onRevert: vi.fn(),
-    onClear: vi.fn(),
   };
   render(
     <DrawTools
@@ -22,8 +21,6 @@ function renderTools(props: Partial<Props> = {}) {
       usedColors={props.usedColors ?? []}
       reassignMode={props.reassignMode ?? false}
       fillMode={props.fillMode ?? "off"}
-      hasDrawing={props.hasDrawing ?? false}
-      canRevert={props.canRevert ?? false}
       {...handlers}
     />,
   );
@@ -41,7 +38,7 @@ describe("DrawTools", () => {
     renderTools({ drawMode: true });
     expect(screen.getByRole("button", { name: "exit draw mode" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "reassign colors" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "fill row" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "draw row" })).toBeInTheDocument();
   });
 
   it("enters draw mode from the collapsed tab", () => {
@@ -57,10 +54,14 @@ describe("DrawTools", () => {
       expect(screen.getByRole("button", { name: "blue" })).toHaveAttribute("aria-pressed", "false");
     });
 
-    it("appends the active colour when it is not among the used colours", () => {
+    it("always shows the selected colour in its own section", () => {
       renderTools({ usedColors: ["red"], color: "green" });
-      // The active green is still shown so the selection stays visible.
-      expect(screen.getByRole("button", { name: "green" })).toBeInTheDocument();
+      // Green is the active colour but not used in the pattern, so it appears
+      // only in the "selected color" section, never as a pattern swatch.
+      expect(
+        screen.getByRole("button", { name: /selected color green/i }),
+      ).toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: "green" })).not.toBeInTheDocument();
     });
 
     it("selects a colour when a swatch is clicked while painting", () => {
@@ -80,11 +81,9 @@ describe("DrawTools", () => {
       expect(onColorChange).not.toHaveBeenCalled();
     });
 
-    it("shows an empty hint when there are no colours to reassign", () => {
-      // In reassign mode the active colour is not appended, so an empty palette
-      // really is empty and the hint shows.
-      renderTools({ usedColors: [], reassignMode: true });
-      expect(screen.getByText(/no colours on the canvas yet/i)).toBeInTheDocument();
+    it("shows an empty hint when no colours are used in the pattern", () => {
+      renderTools({ usedColors: [] });
+      expect(screen.getByText(/no colours in the pattern yet/i)).toBeInTheDocument();
     });
   });
 
@@ -96,13 +95,17 @@ describe("DrawTools", () => {
 
     it("labels the toggle 'done reassigning' and shows a hint while active", () => {
       renderTools({ reassignMode: true, usedColors: ["red"] });
-      expect(screen.getByRole("button", { name: "done reassigning" })).toBeEnabled();
-      expect(screen.getByText(/click a colour to overwrite it/i)).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "done" })).toBeEnabled();
+      expect(screen.getByText(/select a colour to overwrite it globally/i)).toBeInTheDocument();
     });
 
-    it("hides the '+ select color' button in reassign mode", () => {
+    it("keeps the selected-colour picker available in reassign mode", () => {
+      // The selected-colour section is independent of reassigning, so picking a
+      // new paint colour stays available.
       renderTools({ reassignMode: true, usedColors: ["red"] });
-      expect(screen.queryByRole("button", { name: /select color/i })).not.toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /selected color .*click to change/i }),
+      ).toBeInTheDocument();
     });
 
     it("toggles reassign mode", () => {
@@ -114,13 +117,19 @@ describe("DrawTools", () => {
 
   describe("fill modes", () => {
     it.each([
-      ["fill row", "row"],
-      ["fill column", "column"],
+      ["draw row", "row"],
+      ["draw column", "column"],
       ["fill area", "bucket"],
     ] as const)("toggles the %s fill", (label, mode) => {
       const { onToggleFill } = renderTools();
       fireEvent.click(screen.getByRole("button", { name: label }));
       expect(onToggleFill).toHaveBeenCalledWith(mode);
+    });
+
+    it("returns to freehand drawing", () => {
+      const { onFreehand } = renderTools({ fillMode: "bucket" });
+      fireEvent.click(screen.getByRole("button", { name: "draw" }));
+      expect(onFreehand).toHaveBeenCalledTimes(1);
     });
 
     it("marks the active fill button as pressed", () => {
@@ -139,33 +148,11 @@ describe("DrawTools", () => {
     });
   });
 
-  describe("add colour / revert / clear", () => {
-    it("opens the colour picker", () => {
-      const { onPickColor } = renderTools();
-      fireEvent.click(screen.getByRole("button", { name: /select color/i }));
+  describe("add colour", () => {
+    it("opens the colour picker when the selected colour is clicked", () => {
+      const { onPickColor } = renderTools({ color: "black" });
+      fireEvent.click(screen.getByRole("button", { name: /selected color black/i }));
       expect(onPickColor).toHaveBeenCalledTimes(1);
-    });
-
-    it("disables revert until there is a step to undo", () => {
-      renderTools({ canRevert: false });
-      expect(screen.getByRole("button", { name: "revert last step" })).toBeDisabled();
-    });
-
-    it("fires revert when enabled", () => {
-      const { onRevert } = renderTools({ canRevert: true });
-      fireEvent.click(screen.getByRole("button", { name: "revert last step" }));
-      expect(onRevert).toHaveBeenCalledTimes(1);
-    });
-
-    it("disables clear until there is a drawing", () => {
-      renderTools({ hasDrawing: false });
-      expect(screen.getByRole("button", { name: "clear drawing" })).toBeDisabled();
-    });
-
-    it("fires clear when there is a drawing", () => {
-      const { onClear } = renderTools({ hasDrawing: true });
-      fireEvent.click(screen.getByRole("button", { name: "clear drawing" }));
-      expect(onClear).toHaveBeenCalledTimes(1);
     });
   });
 });

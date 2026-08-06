@@ -11,7 +11,7 @@ interface ControlsProps {
 export function Controls({ settings, onChange }: ControlsProps) {
   return (
     <form
-      className="m-0 flex flex-wrap items-end gap-x-5 gap-y-3 max-[600px]:justify-center"
+      className="m-0 flex flex-wrap items-end gap-x-5 gap-y-3 max-[820px]:flex-col max-[820px]:items-stretch max-[820px]:gap-y-2"
       onSubmit={(e) => e.preventDefault()}
     >
       {GRID_CONTROLS.map((spec) => (

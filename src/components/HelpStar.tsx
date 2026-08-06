@@ -17,7 +17,7 @@ export function HelpStar() {
     <>
       <button
         type="button"
-        className="star-clip group fixed top-[30px] right-[30px] z-20 flex h-[52px] w-[52px] origin-center cursor-pointer items-center justify-center border-none bg-brand p-0 transition-transform duration-150 ease-[ease] hover:scale-300 hover:translate-x-[-10px] hover:rotate-[-55deg] hover:outline-none focus-visible:scale-300 focus-visible:translate-x-[-10px] focus-visible:rotate-[-55deg] focus-visible:outline-none"
+        className="star-clip group fixed top-[30px] right-[30px] z-20 flex h-[52px] w-[52px] origin-center max-[820px]:top-2 max-[820px]:right-2 cursor-pointer items-center justify-center border-none bg-brand p-0 transition-transform duration-150 ease-[ease] hover:scale-300 hover:translate-x-[-10px] hover:rotate-[-55deg] hover:outline-none focus-visible:scale-300 focus-visible:translate-x-[-10px] focus-visible:rotate-[-55deg] focus-visible:outline-none"
         aria-label="How does this work?"
         onClick={() => setOpen(true)}
       >
@@ -46,7 +46,7 @@ export function HelpStar() {
           >
             <button
               type="button"
-              className="absolute top-2 right-3 cursor-pointer border-none bg-transparent text-[1.6rem] leading-none text-black"
+              className="absolute top-2 right-3 cursor-pointer border-none bg-transparent text-[1.6rem] leading-none text-black max-[820px]:scale-90"
               aria-label="Close"
               onClick={() => setOpen(false)}
             >
