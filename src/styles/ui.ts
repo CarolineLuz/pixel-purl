@@ -52,3 +52,21 @@ export const iconToggleBtn = (active: boolean) =>
   }`;
 
 export const hint = "text-[0.8rem] leading-[1.3] text-[rgb(51, 47, 47)]";
+
+export const headerToolButton =
+  `inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-[rgb(216,210,210)] bg-white px-4 py-[10px] text-[0.9rem] min-[821px]:px-3.5 min-[821px]:py-2 min-[821px]:text-xs font-bold text-black transition-colors hover:border-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[rgb(216,210,210)] disabled:hover:text-black${mobileShrink}`;
+
+export const headerExportButton =
+  `cursor-pointer rounded-lg bg-brand px-4 py-[10px] text-[0.9rem] min-[821px]:px-3.5 min-[821px]:py-2 min-[821px]:text-xs font-bold text-black shadow-[0_2px_10px_rgba(214,40,40,0.28)] transition-transform duration-150 ease-[ease] hover:scale-105 focus-visible:scale-105 focus-visible:outline-none${mobileShrink}`;
+
+export const headerImportButton =
+  `cursor-pointer rounded-lg border border-brand bg-transparent px-4 py-[10px] text-center text-[0.9rem] min-[821px]:px-3.5 min-[821px]:py-2 min-[821px]:text-xs font-bold text-brand transition-transform duration-150 ease-[ease] hover:scale-105 peer-focus-visible:scale-105 peer-focus-visible:outline-none${mobileShrink}`;
+
+export const headerZoomButton =
+  `inline-flex h-8 w-8 min-[821px]:h-7 min-[821px]:w-7 cursor-pointer items-center justify-center rounded-md text-2xl min-[821px]:text-xl font-bold leading-none text-black transition-colors hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-black ${mobileShrink}`;
+
+/** Wraps the header grid controls so they animate their mobile collapse (grid row 1fr→0fr + fade); stays `contents` on desktop so the controls flow into the header flex. */
+export const collapsibleControls = (collapsed: boolean) =>
+  `min-[821px]:contents grid grid-rows-[1fr] opacity-100 transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
+    collapsed ? "max-[820px]:grid-rows-[0fr] max-[820px]:opacity-0" : ""
+  }`;
