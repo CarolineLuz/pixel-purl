@@ -1,13 +1,8 @@
 import type { FillMode } from "../types/editor";
-import { Icon } from "./Icon";
+import { TOOLBAR_LAYOUTS } from "../config/toolbars";
+import { CollapsibleToolbar } from "./CollapsibleToolbar";
 import { ColorPalette } from "./ColorPalette";
 import { FillModeTools } from "./FillModeTools";
-import {
-  toolbarBase,
-  toolbarCloseBtn,
-  toolbarModeBtn,
-  toolbarPanel,
-} from "../styles/ui";
 
 interface DrawToolsProps {
   /** Whether the canvas is in draw mode (paint) rather than configure mode (drag). */
@@ -52,45 +47,29 @@ export function DrawTools({
   onPickColor,
 }: DrawToolsProps) {
   return (
-    <div
-      className={`${toolbarBase} top-[150px] max-h-[calc(100vh_-_166px)] gap-2 ${
-        drawMode ? `${toolbarPanel} min-[821px]:z-[16] min-[821px]:w-[120px]` : ""
-      }`}
-      role="toolbar"
-      aria-label="drawing tools"
+    <CollapsibleToolbar
+      open={drawMode}
+      onToggle={onToggleMode}
+      label="drawing tools"
+      layout={TOOLBAR_LAYOUTS.draw}
+      collapsedIcon="draw"
+      collapsedLabel="draw"
+      expandedLabel="exit draw mode"
     >
-      <button
-        type="button"
-        className={
-          drawMode
-            ? `${toolbarCloseBtn} min-[821px]:fixed min-[821px]:left-[120px] min-[821px]:top-[150px] min-[821px]:z-[17] min-[821px]:-translate-x-1/2 min-[821px]:-translate-y-1/2`
-            : toolbarModeBtn
-        }
-        aria-pressed={drawMode}
-        aria-label={drawMode ? "exit draw mode" : "draw"}
-        onClick={onToggleMode}
-      >
-        <Icon name={drawMode ? "close" : "draw"}/> 
-      </button>
-
-      {drawMode && (
-        <>
-          <FillModeTools
-            fillMode={fillMode}
-            onFreehand={onFreehand}
-            onToggleFill={onToggleFill}
-          />
-          <ColorPalette
-            color={color}
-            usedColors={usedColors}
-            reassignMode={reassignMode}
-            onColorChange={onColorChange}
-            onReassignColor={onReassignColor}
-            onPickColor={onPickColor}
-            onToggleReassign={onToggleReassign}
-          />
-        </>
-      )}
-    </div>
+      <FillModeTools
+        fillMode={fillMode}
+        onFreehand={onFreehand}
+        onToggleFill={onToggleFill}
+      />
+      <ColorPalette
+        color={color}
+        usedColors={usedColors}
+        reassignMode={reassignMode}
+        onColorChange={onColorChange}
+        onReassignColor={onReassignColor}
+        onPickColor={onPickColor}
+        onToggleReassign={onToggleReassign}
+      />
+    </CollapsibleToolbar>
   );
 }

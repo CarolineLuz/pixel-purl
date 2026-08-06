@@ -17,7 +17,10 @@ export const rangePaired =
 export const rangeFull = "block w-[70%] accent-brand max-[820px]:w-[102px]";
 
 export const toolbarBase =
-  "fixed left-0 min-[821px]:z-[15] m-0 flex flex-col items-stretch overflow-y-auto max-[820px]:static max-[820px]:max-h-none";
+  "fixed left-0 min-[821px]:z-[15] m-0 flex flex-col items-stretch max-[820px]:static";
+
+export const toolbarScroll =
+  "flex flex-col items-stretch gap-2 overflow-y-auto max-[820px]:max-h-none";
 
 export const toolbarPanel =
   "rounded-r-xl border border-l-0 border-[rgb(224,218,218)] bg-[rgb(248,245,245)] px-4 py-4 s] max-[820px]:relative max-[820px]:order-1 max-[820px]:-ml-4 max-[820px]:w-[calc(100%_+_2rem)] max-[820px]:rounded-none max-[820px]:border-0 max-[820px]:bg-[rgb(237,233,233)] max-[820px]:pr-8 max-[820px]:shadow-none";
@@ -26,7 +29,7 @@ export const toolbarModeBtn =
   `cursor-pointer rounded-r-lg border border-l-0 border-[rgb(224,218,218)] bg-[rgb(238,233,233)] px-3.5 py-2 text-[0.8rem] font-bold shadow-[2px_2px_10px_rgba(60,50,50,0.10)] transition-colors hover:bg-[rgb(231,224,224)] hover:text-brand max-[820px]:rounded-none max-[820px]:border-0 max-[820px]:bg-transparent max-[820px]:p-0 max-[820px]:font-normal max-[820px]:underline max-[820px]:underline-offset-2 max-[820px]:shadow-none max-[820px]:hover:bg-transparent ${mobileShrink}`;
 
 export const toolbarCloseBtn =
-  `mb-1 cursor-pointer self-end border-none bg-transparent px-1 py-0 text-[1.6rem] leading-none text-black transition-colors hover:text-brand max-[820px]:absolute max-[820px]:right-2 max-[820px]:top-2 max-[820px]:z-[1] max-[820px]:mb-0 ${mobileShrink}`;
+  `absolute z-[17] cursor-pointer border-none bg-transparent px-1 py-0 text-[1.6rem] leading-none text-black transition-colors hover:text-brand min-[821px]:left-full min-[821px]:top-0 min-[821px]:ml-0 max-[820px]:right-2 max-[820px]:top-1 ${mobileShrink}`;
 
 export const actionBtn =
   `inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-md border border-[rgb(216,210,210)] bg-white px-3 py-1.5 text-[0.8rem] transition-colors hover:border-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-[rgb(216,210,210)] disabled:hover:text-inherit ${mobileShrink}`;

@@ -1,12 +1,6 @@
-import {
-  actionBtn,
-  actionBtnSquare,
-  hint,
-  toolbarBase,
-  toolbarCloseBtn,
-  toolbarModeBtn,
-  toolbarPanel,
-} from "../styles/ui";
+import { TOOLBAR_LAYOUTS } from "../config/toolbars";
+import { actionBtn, actionBtnSquare, hint } from "../styles/ui";
+import { CollapsibleToolbar } from "./CollapsibleToolbar";
 import { Icon } from "./Icon";
 
 interface SelectToolsProps {
@@ -41,84 +35,68 @@ export function SelectTools({
   onDeselect,
 }: SelectToolsProps) {
   return (
-    <div
-      className={`${toolbarBase} top-[260px] max-h-[calc(100vh_-_276px)] gap-2 ${
-        selectMode ? `${toolbarPanel} min-[821px]:z-[16] w-[140px]` : ""
-      }`}
-      role="toolbar"
-      aria-label="selection tools"
+    <CollapsibleToolbar
+      open={selectMode}
+      onToggle={onToggleMode}
+      label="selection tools"
+      layout={TOOLBAR_LAYOUTS.select}
+      collapsedIcon="select"
+      collapsedLabel="select"
+      expandedLabel="exit select mode"
     >
-      <button
-        type="button"
-        className={
-          selectMode
-            ? `${toolbarCloseBtn} min-[821px]:fixed min-[821px]:left-[140px] min-[821px]:top-[260px] min-[821px]:z-[17] min-[821px]:-translate-x-1/2 min-[821px]:-translate-y-1/2`
-            : toolbarModeBtn
-        }
-        aria-pressed={selectMode}
-        aria-label={selectMode ? "exit select mode" : "select"}
-        onClick={onToggleMode}
-      >
-        {selectMode ? <Icon name="close" /> : <Icon size={18} name="select" />}
-      </button>
-
-      {selectMode && (
-        <>
-          <span className={hint}>
-            drag on the grid to select a rectangle of stitches. 
-          </span>
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              className={`${actionBtnSquare} ${
-                moveMode ? "border-brand text-brand font-bold" : ""
-              }`}
-              aria-label="move"
-              aria-pressed={moveMode}
-              disabled={!hasSelection}
-              onClick={onToggleMove}
-            >
-              <Icon size={18} name="move" />
-            </button>
-            <button
-              type="button"
-              className={actionBtnSquare}
-              aria-label="copy"
-              disabled={!hasSelection}
-              onClick={onCopy}
-            >
-              <Icon size={18} name="copy" />
-            </button>
-            <button
-              type="button"
-              className={`${
-                pasting ? actionBtn : actionBtnSquare
-              } ${pasting ? "border-brand text-brand font-bold" : ""}`}
-              aria-label={pasting ? undefined : "paste"}
-              aria-pressed={pasting}
-              disabled={!hasClipboard}
-              onClick={onPaste}
-            >
-              {pasting ? "placing… (cancel)" : <Icon size={18} name="paste" />}
-            </button>
-            <button
-              type="button"
-              className={actionBtnSquare}
-              aria-label="deselect"
-              data-tooltip="deselect"
-              disabled={!hasSelection && !pasting}
-              onClick={onDeselect}
-            >
-              <Icon size={18} name="close" />
-            </button>
-          </div>
-          {pasting && (
-            <span className={hint}>
-              click a stitch on the grid to drop the copied block there.
-            </span>
-          )}
-        </>
+      <span className={hint}>
+        drag on the grid to select a rectangle of stitches.
+      </span>
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          className={`${actionBtnSquare} ${
+            moveMode ? "border-brand text-brand font-bold" : ""
+          }`}
+          aria-label="move"
+          aria-pressed={moveMode}
+          disabled={!hasSelection}
+          onClick={onToggleMove}
+        >
+          <Icon size={18} name="move" />
+        </button>
+        <button
+          type="button"
+          className={actionBtnSquare}
+          aria-label="copy"
+          disabled={!hasSelection}
+          onClick={onCopy}
+        >
+          <Icon size={18} name="copy" />
+        </button>
+        <button
+          type="button"
+          className={`${
+            pasting ? actionBtn : actionBtnSquare
+          } ${pasting ? "border-brand text-brand font-bold" : ""}`}
+          aria-label={pasting ? undefined : "paste"}
+          aria-pressed={pasting}
+          disabled={!hasClipboard}
+          onClick={onPaste}
+        >
+          {pasting ? "placing… (cancel)" : <Icon size={18} name="paste" />}
+        </button>
+        <button
+          type="button"
+          className={actionBtnSquare}
+          aria-label="deselect"
+          data-tooltip="deselect"
+          disabled={!hasSelection && !pasting}
+          onClick={onDeselect}
+        >
+          <Icon size={18} name="close" />
+        </button>
+      </div>
+      {pasting && (
+        <span className={hint}>
+          click a stitch on the grid to drop the copied block there.
+        </span>
       )}
-    </div>
+    </CollapsibleToolbar>
   );
 }
