@@ -45,7 +45,7 @@ build on `lib`, and `lib` knows nothing about React.
 
 ## Demo
 
-A demo of this project can be found under [www.pixel-purl.com](www.pixel-purl.com).
+A demo of this project can be found under [https://www.pixel-purl.com/](https://www.pixel-purl.com/).
 
 
 ## Credits
